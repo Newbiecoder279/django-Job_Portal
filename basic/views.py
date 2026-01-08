@@ -3,10 +3,16 @@ from .forms import RegistrationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
+from jobs.models import PostJob
+
 
 # Create your views here.
 def home(request):
-    return render(request,'home.html')
+    jobs = PostJob.objects.all().order_by("created_at")
+    context = {
+        'jobs':jobs
+    }
+    return render(request,'home.html',context)
 
 
 def registration(request):
@@ -54,7 +60,8 @@ def logout(request):
 
 def dashboard(request):
     return render(request,'dashboard.html')
-           
+
+
        
        
            

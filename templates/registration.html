@@ -1,10 +1,38 @@
-{% extends 'base.html'%}
-
+{% extends 'base.html' %}
 
 {% block content %}
-<form method = 'POST'>
-{% csrf_token %}
-{{form}}
-<button type="submit">submit</button>
-</form>
-{% endblock%}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+
+          <h4 class="card-title text-center mb-4">
+            Create Account
+          </h4>
+
+          <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="d-grid mt-3">
+              <button type="submit" class="btn btn-success">
+                Register
+              </button>
+            </div>
+          </form>
+
+          <p class="text-center mt-3 mb-0">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
