@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from jobs.models import PostJob
+from . models import Profile
+from django.db.models import Q
 
 
 # Create your views here.
@@ -20,8 +22,12 @@ def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('home')
+            user = form.save()
+            Profile.objects.create(
+                user=user,
+                role = form.cleaned_data['role']
+            )
+            return redirect ('login')
     else:
         
         form = RegistrationForm()
@@ -61,6 +67,16 @@ def logout(request):
 def dashboard(request):
     return render(request,'dashboard.html')
 
+def search(request):
+    keyword = request.GET.get('keyword')
+    jobs = PostJob.objects.filter(Q(title__icontains = keyword)|Q(job_type__icontains = keyword))
+
+    context = {
+        'keyword':keyword,
+        'jobs':jobs
+    }
+
+    return render(request, 'search.html', context)       
 
        
        

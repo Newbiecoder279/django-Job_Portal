@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from . forms import PostJobForm
 from django.utils.text import slugify
 from . models import PostJob
+from django.db.models import Q
 # Create your views here.
 
 def job_post_view(request):
@@ -30,4 +31,5 @@ def show_job_details(request,pk):
         'job':job
     }
     return render(request,'job_details.html',context)
-           
+
+

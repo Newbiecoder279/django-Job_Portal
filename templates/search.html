@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Search Results for: "{{ keyword }}"</h3>
+
+{% if jobs %}
+    {% for job in jobs %}
+        <div class="job-card mb-3 p-3 border rounded">
+            <h5>{{ job.title }}</h5>
+            <p>{{ job.job_type }} | {{ job.job_location }}</p>
+            <p>{{ job.short_descrption }}</p>
+            
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No jobs found for "{{ keyword }}".</p>
+{% endif %}
+
+{% endblock %}

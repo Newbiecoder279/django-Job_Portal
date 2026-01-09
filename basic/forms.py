@@ -3,8 +3,12 @@ from django.contrib.auth.models import User
 from django import forms
 
 class RegistrationForm(UserCreationForm):
+    role = forms.ChoiceField(choices = (
+        ('job_seeker','Job Seeker'),
+        ('employer','Employer')
+    ),widget=forms.RadioSelect)
     class Meta:
         model = User
-        fields = ('username','email','password1','password2')
+        fields = ('username','email','role','password1','password2')
 
 
